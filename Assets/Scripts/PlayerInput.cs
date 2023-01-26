@@ -53,6 +53,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""bf143681-e128-4f37-a029-10796c9d0eb5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -180,11 +189,22 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0b392e50-9916-4a21-97b2-3fda73811cd2"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Faster"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7c84999-ffc4-423a-92ed-7b069e6cfa9f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -198,6 +218,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player_ButtonTest = m_Player.FindAction("ButtonTest", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Faster = m_Player.FindAction("Faster", throwIfNotFound: true);
+        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -260,6 +281,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ButtonTest;
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Faster;
+    private readonly InputAction m_Player_Fire;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -267,6 +289,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @ButtonTest => m_Wrapper.m_Player_ButtonTest;
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Faster => m_Wrapper.m_Player_Faster;
+        public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -285,6 +308,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Faster.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFaster;
                 @Faster.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFaster;
                 @Faster.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFaster;
+                @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -298,6 +324,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Faster.started += instance.OnFaster;
                 @Faster.performed += instance.OnFaster;
                 @Faster.canceled += instance.OnFaster;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
             }
         }
     }
@@ -307,5 +336,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnButtonTest(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnFaster(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }
