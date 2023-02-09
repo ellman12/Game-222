@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/HealthSystem.unity
+    guid: b05f200cc0d559a4eba91f5fbf0adc9e
   m_configObjects: {}
