@@ -5,6 +5,7 @@ public class HealthSystem : MonoBehaviour
 {
 	[SerializeField] private bool player;
 	[SerializeField] private int maxHealth = 10;
+	[SerializeField] private GameActionSequence deathSequence;
 	private int currentHealth;
 	private bool alive = true;
 	
@@ -15,6 +16,17 @@ public class HealthSystem : MonoBehaviour
 	private void Start()
 	{
 		currentHealth = maxHealth;
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		Debug.Log(currentHealth);
+		UpdateHealth(-2);
+	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		throw new NotImplementedException();
 	}
 
 	public void UpdateHealth(int amount)
@@ -28,12 +40,13 @@ public class HealthSystem : MonoBehaviour
 		
 		if (currentHealth == 0)
 			MegaDeath();
-		
-		Debug.Log(currentHealth);
 	}
 
 	private void MegaDeath()
 	{
-		Destroy(gameObject);
+		// if (!player)
+			// UpdateScore()
+		// Destroy(gameObject);
+		deathSequence.Play();
 	}
 }

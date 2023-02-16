@@ -40,7 +40,6 @@ public class Fire : MonoBehaviour
 
 	private void FireShot()
 	{
-		Debug.Log("Fired");
 		Instantiate(projectile, transform.position, Quaternion.identity);
 	}
 
